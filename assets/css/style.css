@@ -86,9 +86,19 @@ h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
 .lead { font-size: clamp(1.125rem, 2vw, 1.25rem); color: var(--color-gray-600); margin-bottom: 2rem; }
 
 /* Grids */
-.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; }
-.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
-.grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+.grid-3 { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+.grid-5 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+
+@media (min-width: 768px) {
+  .grid-2 { grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .grid-5 { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+}
+
+@media (min-width: 1024px) {
+  .grid-5 { grid-template-columns: repeat(5, 1fr); }
+}
 
 .align-center { align-items: center; }
 
@@ -394,7 +404,6 @@ h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
   backdrop-filter: blur(5px);
   box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
   z-index: 99;
-  display: none;
 }
 
 /* ===== ANIMATIONS ===== */
@@ -431,6 +440,24 @@ h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
 }
 
 /* ===== RESPONSIVE ===== */
+.mobile-sticky-cta {
+  display: block;
+}
+
+body {
+  padding-bottom: 5rem; /* space for sticky cta */
+}
+
+@media (min-width: 768px) {
+  .mobile-sticky-cta {
+    display: none;
+  }
+  
+  body {
+    padding-bottom: 0;
+  }
+}
+
 @media (max-width: 992px) {
   .hero-container {
     flex-direction: column;
@@ -443,36 +470,27 @@ h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
 }
 
 @media (max-width: 768px) {
-  .nav-links {
-    display: none; /* Hide on mobile to keep it clean, could add hamburger later */
+  .nav-links a {
+    display: none; /* Hide text links on mobile */
   }
   
-  /* Show lang toggle next to header CTA */
   .header-container {
     flex-wrap: wrap;
+    justify-content: space-between;
   }
   
-  .lang-toggle {
-    display: inline-block;
-    position: absolute;
-    top: 1.5rem;
-    left: 1.5rem;
-  }
-
-  [dir="rtl"] .lang-toggle {
-    left: 1.5rem;
-    right: auto;
-  }
-  [dir="ltr"] .lang-toggle {
-    right: 1.5rem;
-    left: auto;
-  }
-
-  .mobile-sticky-cta {
-    display: block;
+  .logo-area {
+    flex: 1 1 100%;
+    justify-content: center;
+    margin-bottom: 1rem;
   }
   
-  body {
-    padding-bottom: 5rem; /* space for sticky cta */
+  .header .btn {
+    display: none; /* Hide header CTA on mobile since we have sticky bottom */
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
   }
 }
